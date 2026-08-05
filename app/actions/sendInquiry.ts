@@ -1,6 +1,7 @@
 "use server";
 
 import { SESv2Client, SendEmailCommand } from "@aws-sdk/client-sesv2";
+import { checkStay } from "@/lib/stayRules";
 
 // Deliver to both the branded Workspace address and the owners' personal
 // inbox, so an inquiry can never be lost to a mail-routing change.
@@ -56,8 +57,33 @@ export async function sendInquiry(
   const children = s(formData.get("children"));
   const comments = s(formData.get("comments"));
 
-  if (!first || !email) {
-    return { ok: false, message: "Please provide your name and email." };
+  const missing = [
+    !first && "first name",
+    !last && "last name",
+    !email && "email",
+    !phone && "phone number",
+  ].filter(Boolean) as string[];
+
+  if (missing.length) {
+    const list =
+      missing.length === 1
+        ? missing[0]
+        : `${missing.slice(0, -1).join(", ")} and ${missing[missing.length - 1]}`;
+    return { ok: false, message: `Please provide your ${list}.` };
+  }
+
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+    return { ok: false, message: "That email address doesn't look right." };
+  }
+
+  if (phone.replace(/\D/g, "").length < 7) {
+    return { ok: false, message: "That phone number doesn't look right." };
+  }
+
+  // Re-check server-side; the client validation is a convenience, not a gate.
+  const stay = checkStay(checkIn, checkOut);
+  if (!stay.ok && stay.error) {
+    return { ok: false, message: stay.error };
   }
 
   const name = [first, last].filter(Boolean).join(" ");
@@ -80,7 +106,7 @@ export async function sendInquiry(
   const rows: [string, string][] = [
     ["Name", name],
     ["Email", email],
-    ["Phone", phone || "—"],
+    ["Phone", phone],
     ["Dates", dates],
     ["Party", party],
   ];

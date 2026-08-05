@@ -88,11 +88,6 @@ const PHOTOS: Photo[] = [
     cat: "Pool & Outdoors",
   },
   {
-    src: "/images/pool-lounge.jpg",
-    alt: "The covered beachfront lounge with its linear fire table, facing the surf break",
-    cat: "Pool & Outdoors",
-  },
-  {
     src: "/images/poolside.jpg",
     alt: "Teak club chairs around a drum table on the lawn-edge deck",
     cat: "Pool & Outdoors",
@@ -236,8 +231,8 @@ export default function GalleryPage() {
       <PageHero
         eyebrow="Gallery"
         title="Look around"
-        image="/images/living-palapa.jpg"
-        alt="The great room at Vatulé beneath its palapa roof"
+        image="/images/pool-lounge.jpg"
+        alt="The beachfront lounge at Vatulé, looking out to the surf break"
       />
 
       <section className="px-5 py-24 sm:px-8 sm:py-28">

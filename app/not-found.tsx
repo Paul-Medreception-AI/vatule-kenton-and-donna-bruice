@@ -1,33 +1,44 @@
-import Link from 'next/link'
+import Image from "next/image";
+import Link from "next/link";
 
 export default function NotFound() {
   return (
-    <div className="bg-[var(--color-cream)] min-h-screen flex items-center justify-center px-4">
-      <div className="text-center">
-        <div className="text-9xl font-serif text-[var(--color-primary)] opacity-20">
-          404
-        </div>
-        <h1 className="font-serif text-4xl text-[var(--color-ink)] mt-4">
-          Page Not Found
-        </h1>
-        <p className="text-[var(--color-muted)] mt-2 text-lg">
-          The page you're looking for doesn't exist.
+    <section className="relative flex min-h-[80vh] items-center justify-center overflow-hidden">
+      <Image
+        src="/images/view-sunset.jpg"
+        alt=""
+        fill
+        sizes="100vw"
+        className="object-cover"
+      />
+      <div className="absolute inset-0 bg-[rgba(13,26,32,0.75)]" />
+      <div className="relative z-10 px-6 text-center text-white">
+        <p className="text-[0.7rem] font-medium uppercase tracking-[0.36em] text-[var(--color-brass-light)]">
+          Page not found
         </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+        <h1 className="mt-7 font-display text-4xl font-light sm:text-5xl">
+          This page has drifted out to sea
+        </h1>
+        <div className="mx-auto mt-8 h-px w-12 bg-[var(--color-brass-light)]" />
+        <p className="mx-auto mt-8 max-w-md leading-relaxed text-white/70">
+          The page you were looking for isn&rsquo;t here — but the estate is
+          exactly where you left it.
+        </p>
+        <div className="mt-11 flex flex-col items-center justify-center gap-4 sm:flex-row">
           <Link
             href="/"
-            className="inline-block bg-[var(--color-accent)] hover:bg-[var(--color-accent-dark)] text-white px-8 py-3 rounded-full transition-colors"
+            className="w-full bg-white px-10 py-4 text-[0.7rem] font-medium uppercase tracking-[0.28em] text-[var(--color-ink)] transition-colors duration-300 hover:bg-[var(--color-brass)] hover:text-white sm:w-auto"
           >
-            Go Home
+            Return Home
           </Link>
           <Link
-            href="/contact"
-            className="inline-block border-2 border-[var(--color-border)] hover:border-[var(--color-accent)] text-[var(--color-ink)] px-8 py-3 rounded-full transition-colors"
+            href="/gallery"
+            className="w-full border border-white/50 px-10 py-4 text-[0.7rem] font-medium uppercase tracking-[0.28em] text-white transition-colors duration-300 hover:bg-white/10 sm:w-auto"
           >
-            Contact Us
+            View Gallery
           </Link>
         </div>
       </div>
-    </div>
-  )
+    </section>
+  );
 }

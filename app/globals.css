@@ -3,27 +3,116 @@
 @tailwind utilities;
 
 :root {
-  --color-primary: #ffffff;
-  --color-dark: #a6a6a6;
-  --color-light: #ffffff;
-  --color-ink: #1a2030;
-  --color-cream: #ffffff;
-  --color-muted: #64748b;
-  --color-border: #ffffff;
-  --color-accent: #ffffff;
-  --color-accent-dark: #a6a6a6;
+  /* Deep Pacific at dusk — the estate's dominant dark */
+  --color-ink: #16262e;
+  --color-ink-deep: #0d1a20;
+  --color-ink-soft: #243a44;
+
+  /* Warm plaster + sand — the estate's dominant light */
+  --color-cream: #fbf8f3;
+  --color-sand: #f2ebe1;
+  --color-stone: #ddd2c2;
+
+  /* Brass — lantern hardware. Accent ONLY: rules, eyebrows, CTAs, small marks. */
+  --color-brass: #b08d57;
+  --color-brass-light: #c9a96e;
+  --color-brass-dark: #96754a;
+
+  --color-muted: #6f7b80;
+  --color-border: #e4dbcd;
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body { background-color: var(--color-cream); color: var(--color-ink); }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background-color: var(--color-cream);
+  color: var(--color-ink);
+}
+
+/* ---- Type primitives ------------------------------------------------ */
+
+.font-display {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-weight: 300;
+  letter-spacing: -0.01em;
+}
+
+/* Small uppercase brass label that opens most sections */
+.eyebrow {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--color-brass);
+}
+
+.eyebrow-light { color: var(--color-brass-light); }
+
+/* Hairline rule used as a section signature */
+.rule {
+  width: 3rem;
+  height: 1px;
+  background-color: var(--color-brass);
+}
+
+/* ---- Motion --------------------------------------------------------- */
 
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(32px); }
+  from { opacity: 0; transform: translateY(28px); }
   to   { opacity: 1; transform: translateY(0); }
 }
+
+@keyframes slowZoom {
+  from { transform: scale(1.06); }
+  to   { transform: scale(1); }
+}
+
 .animate-fade-up {
-  animation: fadeUp 0.65s cubic-bezier(0.22,1,0.36,1) forwards;
-  animation-timeline: view();
-  animation-range: entry 0% entry 35%;
+  animation: fadeUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.hero-zoom {
+  animation: slowZoom 14s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-up,
+  .hero-zoom {
+    animation: none;
+  }
+  html { scroll-behavior: auto; }
+}
+
+/* Reveal-on-scroll where supported, no-op elsewhere */
+@supports (animation-timeline: view()) {
+  .reveal {
+    animation: fadeUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 40%;
+  }
+}
+
+/* ---- Image treatments ----------------------------------------------- */
+
+.img-frame {
+  overflow: hidden;
+  background-color: var(--color-sand);
+}
+
+.img-frame img {
+  transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.img-frame:hover img {
+  transform: scale(1.04);
+}
+
+::selection {
+  background: var(--color-brass);
+  color: #fff;
 }

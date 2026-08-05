@@ -58,7 +58,7 @@ const GALLERY_TEASE = [
     src: "/images/view-pacific.jpg",
     alt: "The pool's infinity edge, the ocean beyond",
   },
-  { src: "/images/dining.jpg", alt: "The great room dining area at Vatulé" },
+  { src: "/images/dining-formal.jpg", alt: "The great room dining area at Vatulé" },
 ];
 
 export default function HomePage() {
@@ -276,7 +276,7 @@ export default function HomePage() {
       {/* ── Staff ────────────────────────────────────────────── */}
       <section className="relative overflow-hidden">
         <Image
-          src="/images/dining.jpg"
+          src="/images/dining-formal.jpg"
           alt="Dining at Vatulé"
           fill
           sizes="100vw"

@@ -83,11 +83,6 @@ const PHOTOS: Photo[] = [
     cat: "Pool & Outdoors",
   },
   {
-    src: "/images/pool-golf-pacific.jpg",
-    alt: "The infinity pool at golden hour, the fairway and Pacific beyond",
-    cat: "Pool & Outdoors",
-  },
-  {
     src: "/images/pool-twilight.jpg",
     alt: "The pool at blue hour, looking toward the great-room palapa",
     cat: "Pool & Outdoors",

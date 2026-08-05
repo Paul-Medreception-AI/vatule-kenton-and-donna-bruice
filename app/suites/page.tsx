@@ -97,8 +97,8 @@ export default function SuitesPage() {
         eyebrow="Accommodation"
         title="Room for everyone"
         intro="Five king suites, all with Pacific Ocean views and private entrances, plus a youth bunk house that sleeps twelve with its own media room."
-        image="/images/suite-primary-alt.jpg"
-        alt="A king suite at Vatulé opening onto the ocean"
+        image="/images/suite-four.jpg"
+        alt="A king suite at Vatulé at twilight, the pool and sunset ocean beyond"
       />
 
       <section className="px-6 py-24 sm:py-28">

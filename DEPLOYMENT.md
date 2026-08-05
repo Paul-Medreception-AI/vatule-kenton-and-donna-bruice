@@ -23,6 +23,28 @@ waiting on DKIM.
 > **Set these to DNS-only (grey cloud), not proxied.** Cloudflare's orange-cloud
 > proxy rewrites CNAME targets and DKIM validation will never succeed.
 
+### Domain verification — one TXT
+
+SES can verify the domain by this record independently of DKIM, which is useful
+if DKIM polling is slow (it can lag badly when the identity was created before
+the DNS records existed).
+
+| Type | Name         | Value                                          |
+| ---- | ------------ | ---------------------------------------------- |
+| TXT  | `_amazonses` | `t3nUF96rCD5w4kwtnESvyXJcVn1brr1MU3wlWBbI258=` |
+
+Re-fetch the token any time with:
+
+```bash
+aws ses verify-domain-identity --domain vatule.com --region us-east-1 \
+  --query VerificationToken --output text
+```
+
+That call is idempotent — it returns the existing token rather than issuing a
+new one. The same is true of `aws ses verify-domain-dkim`, which returns the
+same three DKIM tokens and re-triggers polling without invalidating the CNAMEs
+already in DNS.
+
 ### SPF — amend the existing record
 
 The zone currently has:

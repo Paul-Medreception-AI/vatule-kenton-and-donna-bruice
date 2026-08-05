@@ -16,8 +16,8 @@ export default function ContactPage() {
         eyebrow="Reservations"
         title="We look forward to hosting you"
         intro="Send us your dates and we will reply personally — your inquiry comes straight to the owners."
-        image="/images/sunset-terrace.jpg"
-        alt="The terrace at Vatulé at sunset"
+        image="/images/view-sunset.jpg"
+        alt="Sunset over the Pacific from Vatulé"
       />
 
       <section className="px-5 py-24 sm:px-8 sm:py-32">

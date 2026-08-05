@@ -67,8 +67,8 @@ export default function AmenitiesPage() {
         eyebrow="Amenities & Service"
         title="Everything, already taken care of"
         intro="Vatulé arrives fully staffed. You bring the people; the rest is handled."
-        image="/images/outdoor-lounge.jpg"
-        alt="Shaded outdoor living area with wet bar at Vatulé"
+        image="/images/terrace.jpg"
+        alt="The shaded ocean-front loggia at Vatulé, with fire-pit lounge, dining table and grill"
       />
 
       {/* Staff */}

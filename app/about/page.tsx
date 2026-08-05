@@ -18,7 +18,7 @@ export default function AboutPage() {
         title="A family home, built for gathering"
         intro="Named after Donna and Kenton Bruice's three children — Valen, Tulah and Leighton."
         image="/images/estate-portrait.jpg"
-        alt="Vatulé's oceanfront elevation seen from the lawn"
+        alt="Aerial view of Vatulé and its pool terrace"
       />
 
       {/* Opening statement */}
@@ -55,8 +55,8 @@ export default function AboutPage() {
         <div className="mx-auto grid max-w-7xl items-center gap-14 lg:grid-cols-2 lg:gap-20">
           <div className="img-frame reveal relative h-[420px] w-full sm:h-[560px]">
             <Image
-              src="/images/great-room.jpg"
-              alt="The great room at Vatulé, open to the terrace"
+              src="/images/living-palapa.jpg"
+              alt="The great room at Vatulé, beneath the main palapa"
               fill
               sizes="(max-width: 1024px) 100vw, 50vw"
               className="object-cover"
@@ -87,8 +87,8 @@ export default function AboutPage() {
       {/* Pull quote */}
       <section className="relative overflow-hidden">
         <Image
-          src="/images/grounds-palms.jpg"
-          alt="Palms and lawn on the grounds at Vatulé"
+          src="/images/property-dusk.jpg"
+          alt="Vatulé at golden hour, seen down the ocean terrace"
           fill
           sizes="100vw"
           className="object-cover"
@@ -136,7 +136,7 @@ export default function AboutPage() {
           <div className="img-frame reveal relative order-1 h-[420px] w-full sm:h-[560px] lg:order-2">
             <Image
               src="/images/estate-grounds.jpg"
-              alt="The grounds and buildings of Vatulé"
+              alt="The guest pavilions and grounds at Vatulé"
               fill
               sizes="(max-width: 1024px) 100vw, 50vw"
               className="object-cover"

@@ -6,7 +6,7 @@ import Gallery, { type Photo } from "@/components/Gallery";
 export const metadata: Metadata = {
   title: "Gallery",
   description:
-    "Photographs of Vatulé — the 72-foot infinity pool, palapa living rooms, king suites, youth bunk house, kitchen and Pacific views.",
+    "Photographs of Vatulé — the 72-foot infinity pool, the palapa great room, five king suites, the youth bunk house, the kitchen and the Pacific.",
   alternates: { canonical: "/gallery" },
 };
 
@@ -18,65 +18,221 @@ const CATEGORIES = [
   "Suites",
 ];
 
+/**
+ * Captions describe what is actually in each frame. Several of the source
+ * filenames from the old site were wrong (two bedrooms were named for outdoor
+ * spaces, an aerial was named "great room"), so do not trust the filename.
+ */
 const PHOTOS: Photo[] = [
-  // Views
-  { src: "/images/view-sunset.jpg", alt: "Sunset over the Pacific from Vatulé", cat: "Views" },
-  { src: "/images/view-pacific.jpg", alt: "The Pacific Ocean from the estate", cat: "Views" },
-  { src: "/images/view-surf.jpg", alt: "Surf view from Vatulé toward the Cove", cat: "Views" },
-  { src: "/images/pool-marietas.jpg", alt: "Looking toward the Marietas Islands", cat: "Views" },
-  { src: "/images/sunset-terrace.jpg", alt: "The terrace at sunset", cat: "Views" },
-  { src: "/images/aerial.jpg", alt: "Aerial view of Vatulé at the Point", cat: "Views" },
-  { src: "/images/aerial-golf.jpg", alt: "Aerial view over the golf course and coastline", cat: "Views" },
+  // ── Views ──────────────────────────────────────────────────
+  {
+    src: "/images/view-surf.jpg",
+    alt: "The infinity pool and deck at sunset, looking across the lawn and fairway to the surf break",
+    cat: "Views",
+  },
+  {
+    src: "/images/view-sunset.jpg",
+    alt: "Sunset across the lawn and golf fairway to the open Pacific",
+    cat: "Views",
+  },
+  {
+    src: "/images/view-pacific.jpg",
+    alt: "The pool's infinity edge, with the ocean and shorebreak beyond",
+    cat: "Views",
+  },
+  {
+    src: "/images/pool-marietas.jpg",
+    alt: "The pool deck at dusk, the Marietas Islands on the horizon",
+    cat: "Views",
+  },
+  {
+    src: "/images/aerial.jpg",
+    alt: "Vatulé seen from over the water, the golf fairway and reef in front",
+    cat: "Views",
+  },
+  {
+    src: "/images/aerial-golf.jpg",
+    alt: "Twilight aerial of the estate — palapa great room, loggia, pool and lawn",
+    cat: "Views",
+  },
+  {
+    src: "/images/great-room.jpg",
+    alt: "Twilight aerial from the ocean side, the Sierra Madre on the horizon",
+    cat: "Views",
+  },
+  {
+    src: "/images/estate-portrait.jpg",
+    alt: "Aerial of the main house and pool terrace",
+    cat: "Views",
+  },
+  {
+    src: "/images/estate-grounds.jpg",
+    alt: "The guest pavilions and entry walks, the main palapa behind",
+    cat: "Views",
+  },
+  {
+    src: "/images/guest-exterior.jpg",
+    alt: "The guest pavilion wing at golden hour",
+    cat: "Views",
+  },
 
-  // Pool & Outdoors
-  { src: "/images/hero-pool-sunset.jpg", alt: "The 72-foot infinity pool at golden hour", cat: "Pool & Outdoors" },
-  { src: "/images/pool-golf-pacific.jpg", alt: "The infinity pool with the golf course and Pacific beyond", cat: "Pool & Outdoors" },
-  { src: "/images/pool-twilight.jpg", alt: "The infinity pool at twilight", cat: "Pool & Outdoors" },
-  { src: "/images/pool-lounge.jpg", alt: "Loungers along the pool deck", cat: "Pool & Outdoors" },
-  { src: "/images/poolside.jpg", alt: "Poolside at Vatulé", cat: "Pool & Outdoors" },
-  { src: "/images/daybed-palapa.jpg", alt: "The daybed palapa beside the pool", cat: "Pool & Outdoors" },
-  { src: "/images/outdoor-lounge.jpg", alt: "Shaded outdoor lounge with wet bar", cat: "Pool & Outdoors" },
-  { src: "/images/outdoor-dining.jpg", alt: "Alfresco dining overlooking the pool", cat: "Pool & Outdoors" },
-  { src: "/images/firepit.jpg", alt: "The fire pit in the evening", cat: "Pool & Outdoors" },
-  { src: "/images/terrace.jpg", alt: "Shaded terrace overlooking the Pacific", cat: "Pool & Outdoors" },
-  { src: "/images/terrace-alt.jpg", alt: "Terrace seating at Vatulé", cat: "Pool & Outdoors" },
-  { src: "/images/grounds-lawn.jpg", alt: "The 50-yard playing lawn", cat: "Pool & Outdoors" },
-  { src: "/images/grounds-palms.jpg", alt: "Palms and gardens on the grounds", cat: "Pool & Outdoors" },
-  { src: "/images/property-dusk.jpg", alt: "The estate at dusk", cat: "Pool & Outdoors" },
-  { src: "/images/estate-grounds.jpg", alt: "The buildings and grounds of Vatulé", cat: "Pool & Outdoors" },
-  { src: "/images/estate-portrait.jpg", alt: "Vatulé's oceanfront elevation", cat: "Pool & Outdoors" },
-  { src: "/images/guest-exterior.jpg", alt: "Guest suite exterior and entrance", cat: "Pool & Outdoors" },
+  // ── Pool & Outdoors ────────────────────────────────────────
+  {
+    src: "/images/hero-pool-sunset.jpg",
+    alt: "The 72-foot lap pool at sunset, its infinity edge spilling toward the lawn",
+    cat: "Pool & Outdoors",
+  },
+  {
+    src: "/images/pool-golf-pacific.jpg",
+    alt: "The infinity pool at golden hour, the fairway and Pacific beyond",
+    cat: "Pool & Outdoors",
+  },
+  {
+    src: "/images/pool-twilight.jpg",
+    alt: "The pool at blue hour, looking toward the great-room palapa",
+    cat: "Pool & Outdoors",
+  },
+  {
+    src: "/images/pool-lounge.jpg",
+    alt: "The covered beachfront lounge with its linear fire table, facing the surf break",
+    cat: "Pool & Outdoors",
+  },
+  {
+    src: "/images/poolside.jpg",
+    alt: "Teak club chairs around a drum table on the lawn-edge deck",
+    cat: "Pool & Outdoors",
+  },
+  {
+    src: "/images/terrace.jpg",
+    alt: "The ocean-front loggia at twilight — fire-pit lounge, dining table and grill",
+    cat: "Pool & Outdoors",
+  },
+  {
+    src: "/images/terrace-alt.jpg",
+    alt: "The loggia and pool deck at sunset, the fire-pit table lit",
+    cat: "Pool & Outdoors",
+  },
+  {
+    src: "/images/daybed-palapa.jpg",
+    alt: "The thatched daybed palapa at the edge of the lawn",
+    cat: "Pool & Outdoors",
+  },
+  {
+    src: "/images/detail-two.jpg",
+    alt: "The beachfront palapa sheltering its carved-wood daybed",
+    cat: "Pool & Outdoors",
+  },
+  {
+    src: "/images/detail-one.jpg",
+    alt: "Across the lawn to the infinity pool, loungers and pergola-shaded terrace",
+    cat: "Pool & Outdoors",
+  },
+  {
+    src: "/images/detail-three.jpg",
+    alt: "The daybed palapa at sunset, the sun going down over open water",
+    cat: "Pool & Outdoors",
+  },
+  {
+    src: "/images/firepit.jpg",
+    alt: "The pool terrace at golden hour — loungers, outdoor kitchen loggia and pergola",
+    cat: "Pool & Outdoors",
+  },
+  {
+    src: "/images/property-dusk.jpg",
+    alt: "The ocean terrace at golden hour, the lawn falling away to the rocky shore",
+    cat: "Pool & Outdoors",
+  },
 
-  // Living & Dining
-  { src: "/images/living-twilight.jpg", alt: "The palapa-roofed living room at twilight", cat: "Living & Dining" },
-  { src: "/images/living-room.jpg", alt: "The living room at Vatulé", cat: "Living & Dining" },
-  { src: "/images/living-palapa.jpg", alt: "Living room beneath the palapa roof", cat: "Living & Dining" },
-  { src: "/images/living-alt.jpg", alt: "A second lounge area", cat: "Living & Dining" },
-  { src: "/images/great-room.jpg", alt: "The great room opening to the terrace", cat: "Living & Dining" },
-  { src: "/images/seating-area.jpg", alt: "Seating area with ocean outlook", cat: "Living & Dining" },
-  { src: "/images/dining.jpg", alt: "Dining at Vatulé", cat: "Living & Dining" },
-  { src: "/images/dining-formal.jpg", alt: "The formal dining room", cat: "Living & Dining" },
-  { src: "/images/media-room.jpg", alt: "The media room", cat: "Living & Dining" },
-  { src: "/images/media-room-alt.jpg", alt: "Media room seating", cat: "Living & Dining" },
-  { src: "/images/interior-detail.jpg", alt: "Interior detail at Vatulé", cat: "Living & Dining" },
-  { src: "/images/detail-one.jpg", alt: "Interior detail", cat: "Living & Dining" },
-  { src: "/images/detail-two.jpg", alt: "Interior detail", cat: "Living & Dining" },
-  { src: "/images/detail-three.jpg", alt: "Interior detail", cat: "Living & Dining" },
+  // ── Living & Dining ────────────────────────────────────────
+  {
+    src: "/images/living-palapa.jpg",
+    alt: "The great room beneath the main palapa, looking toward the kitchen end",
+    cat: "Living & Dining",
+  },
+  {
+    src: "/images/living-twilight.jpg",
+    alt: "The great room from the opposite end, its cream sofas and sisal rug",
+    cat: "Living & Dining",
+  },
+  {
+    src: "/images/dining-formal.jpg",
+    alt: "The great room dining area — two long tables under the palapa, the ocean framed beyond",
+    cat: "Living & Dining",
+  },
+  {
+    src: "/images/living-room.jpg",
+    alt: "The formal dining room, seating twelve beneath a sunburst chandelier",
+    cat: "Living & Dining",
+  },
+  {
+    src: "/images/media-room.jpg",
+    alt: "The media room in the stone-walled pavilion",
+    cat: "Living & Dining",
+  },
+  {
+    src: "/images/interior-detail.jpg",
+    alt: "The sitting room's fieldstone wall, opening to the ocean-side terrace",
+    cat: "Living & Dining",
+  },
 
-  // Kitchen
-  { src: "/images/kitchen.jpg", alt: "The gourmet kitchen", cat: "Kitchen" },
-  { src: "/images/kitchen-view.jpg", alt: "Kitchen with breakfast bar", cat: "Kitchen" },
-  { src: "/images/kitchen-view-2.jpg", alt: "The kitchen and breakfast table", cat: "Kitchen" },
+  // ── Kitchen ────────────────────────────────────────────────
+  {
+    src: "/images/kitchen.jpg",
+    alt: "The kitchen — marble counters, brass lanterns and a patterned cement-tile floor",
+    cat: "Kitchen",
+  },
+  {
+    src: "/images/kitchen-view.jpg",
+    alt: "The kitchen's range wall and rattan bistro stools",
+    cat: "Kitchen",
+  },
+  {
+    src: "/images/kitchen-view-2.jpg",
+    alt: "The kitchen island, with folding windows onto a planted courtyard",
+    cat: "Kitchen",
+  },
 
-  // Suites
-  { src: "/images/suite-primary.jpg", alt: "The primary king suite", cat: "Suites" },
-  { src: "/images/suite-primary-alt.jpg", alt: "The primary suite opening to its terrace", cat: "Suites" },
-  { src: "/images/suite-two.jpg", alt: "King suite two", cat: "Suites" },
-  { src: "/images/suite-three.jpg", alt: "King suite three", cat: "Suites" },
-  { src: "/images/suite-four.jpg", alt: "King suite four", cat: "Suites" },
-  { src: "/images/suite-five.jpg", alt: "King suite five", cat: "Suites" },
-  { src: "/images/bunk-house.jpg", alt: "The youth bunk house with twelve twin beds", cat: "Suites" },
-  { src: "/images/bath.jpg", alt: "An en-suite bath", cat: "Suites" },
+  // ── Suites ─────────────────────────────────────────────────
+  {
+    src: "/images/suite-primary.jpg",
+    alt: "The primary bedroom, opening to the lounger terrace and the ocean",
+    cat: "Suites",
+  },
+  {
+    src: "/images/suite-two.jpg",
+    alt: "An upper guest suite, its balcony overlooking the palapa and the Pacific",
+    cat: "Suites",
+  },
+  {
+    src: "/images/suite-three.jpg",
+    alt: "A guest suite with bleached-oak four-poster, opening to a private terrace",
+    cat: "Suites",
+  },
+  {
+    src: "/images/suite-four.jpg",
+    alt: "A guest suite at twilight, the pool and sunset ocean beyond",
+    cat: "Suites",
+  },
+  {
+    src: "/images/suite-five.jpg",
+    alt: "A guest suite opening to its own stone terrace",
+    cat: "Suites",
+  },
+  {
+    src: "/images/outdoor-dining.jpg",
+    alt: "A guest suite with a whitewashed four-poster and an upper balcony over the ocean",
+    cat: "Suites",
+  },
+  {
+    src: "/images/bunk-house.jpg",
+    alt: "The youth bunk house, built-in twin bunks along both walls, doors open to a palm garden",
+    cat: "Suites",
+  },
+  {
+    src: "/images/bath.jpg",
+    alt: "The primary bath, with a freestanding tub and an indoor-outdoor rain shower",
+    cat: "Suites",
+  },
 ];
 
 export default function GalleryPage() {
@@ -86,7 +242,7 @@ export default function GalleryPage() {
         eyebrow="Gallery"
         title="Look around"
         image="/images/living-palapa.jpg"
-        alt="The living room at Vatulé beneath its palapa roof"
+        alt="The great room at Vatulé beneath its palapa roof"
       />
 
       <section className="px-5 py-24 sm:px-8 sm:py-28">

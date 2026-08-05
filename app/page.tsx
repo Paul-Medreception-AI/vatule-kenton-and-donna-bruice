@@ -18,13 +18,13 @@ const SUITES = [
   },
   {
     img: "/images/bunk-house.jpg",
-    alt: "Vatulé's youth bunk house with twelve custom built-in twin beds",
+    alt: "Vatulé's youth bunk house, custom built-in twin bunks along both walls",
     title: "Youth Bunk House",
     body: "Twelve twin beds, two baths, a second-floor media room with Xbox, and a rooftop terrace with 360° views.",
   },
   {
     img: "/images/living-twilight.jpg",
-    alt: "Vatulé's palapa-roofed living room at twilight",
+    alt: "The great room at Vatulé, beneath its palapa roof",
     title: "Two Living Rooms",
     body: "Palapa-roofed, open to the breeze, furnished in stained wood, stone and quiet neutral textures.",
   },
@@ -49,10 +49,16 @@ const NEARBY: [string, string][] = [
 ];
 
 const GALLERY_TEASE = [
-  { src: "/images/kitchen.jpg", alt: "The gourmet kitchen at Vatulé" },
-  { src: "/images/terrace.jpg", alt: "Shaded terrace overlooking the Pacific" },
-  { src: "/images/view-pacific.jpg", alt: "Pacific Ocean view from Vatulé" },
-  { src: "/images/dining.jpg", alt: "Formal dining room at Vatulé" },
+  { src: "/images/kitchen.jpg", alt: "The kitchen at Vatulé" },
+  {
+    src: "/images/terrace.jpg",
+    alt: "The ocean-front loggia, with fire-pit lounge and grill",
+  },
+  {
+    src: "/images/view-pacific.jpg",
+    alt: "The pool's infinity edge, the ocean beyond",
+  },
+  { src: "/images/dining.jpg", alt: "The great room dining area at Vatulé" },
 ];
 
 export default function HomePage() {
@@ -306,7 +312,7 @@ export default function HomePage() {
           <div className="img-frame reveal relative h-[420px] w-full sm:h-[560px]">
             <Image
               src="/images/aerial.jpg"
-              alt="Aerial view of Vatulé on the point at Punta Mita"
+              alt="Vatulé seen from over the water, the golf fairway and reef in front"
               fill
               sizes="(max-width: 1024px) 100vw, 50vw"
               className="object-cover"

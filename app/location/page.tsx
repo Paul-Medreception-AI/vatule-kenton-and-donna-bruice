@@ -28,7 +28,7 @@ export default function LocationPage() {
         title="At the Point, inside the gates"
         intro="La Punta Estates, in the heart of the ultra-exclusive gated community of Punta Mita, Nayarit."
         image="/images/aerial-golf.jpg"
-        alt="Aerial view of La Punta with the golf course and Pacific"
+        alt="Twilight aerial of Vatulé — palapa great room, loggia, pool and lawn"
       />
 
       <section className="px-6 py-24 sm:py-32">

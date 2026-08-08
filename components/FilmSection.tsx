@@ -6,18 +6,41 @@ import Image from "next/image";
 /**
  * Click-to-play film section.
  *
- * Nothing but the poster loads until the guest asks for it, so the film
- * costs zero bandwidth on first paint. Set NEXT_PUBLIC_FILM_YOUTUBE_ID to
- * stream the full-length film from YouTube instead of the self-hosted clip.
+ * Nothing but the poster loads until the guest asks for it, so the film costs
+ * no bandwidth on first paint.
+ *
+ * Source, in order of preference:
+ *   1. Vimeo  — NEXT_PUBLIC_FILM_VIMEO_ID (+ _HASH for unlisted videos)
+ *   2. YouTube — NEXT_PUBLIC_FILM_YOUTUBE_ID
+ *   3. A self-hosted file at /video/vatule-loop.mp4
+ *
+ * The Vimeo hash is the `h=` parameter Vimeo appends to unlisted videos. It is
+ * not a secret — it appears in the public share URL and in the page's
+ * og:video:url — but the embed returns 401 without it.
  */
+const VIMEO_ID = process.env.NEXT_PUBLIC_FILM_VIMEO_ID;
+const VIMEO_HASH = process.env.NEXT_PUBLIC_FILM_VIMEO_HASH;
+const YOUTUBE_ID = process.env.NEXT_PUBLIC_FILM_YOUTUBE_ID;
+
+function vimeoSrc() {
+  const q = new URLSearchParams({
+    autoplay: "1",
+    byline: "0",
+    portrait: "0",
+    title: "0",
+    dnt: "1",
+  });
+  if (VIMEO_HASH) q.set("h", VIMEO_HASH);
+  return `https://player.vimeo.com/video/${VIMEO_ID}?${q.toString()}`;
+}
+
 export default function FilmSection() {
   const [playing, setPlaying] = useState(false);
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  const youtubeId = process.env.NEXT_PUBLIC_FILM_YOUTUBE_ID;
 
   const start = () => {
     setPlaying(true);
-    // Self-hosted path: kick playback once React has swapped the node in.
+    // Self-hosted path only: nudge playback once React swaps the node in.
     requestAnimationFrame(() => videoRef.current?.play().catch(() => {}));
   };
 
@@ -68,28 +91,39 @@ export default function FilmSection() {
             </button>
           )}
 
-          {playing &&
-            (youtubeId ? (
-              <iframe
-                src={`https://www.youtube-nocookie.com/embed/${youtubeId}?autoplay=1&rel=0&modestbranding=1`}
-                title="Vatulé — the film"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                className="h-full w-full border-0"
-              />
-            ) : (
-              <video
-                ref={videoRef}
-                controls
-                playsInline
-                preload="metadata"
-                poster="/images/film-poster.jpg"
-                className="h-full w-full bg-black object-cover"
-              >
-                <source src="/video/vatule-loop.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-            ))}
+          {playing && VIMEO_ID && (
+            <iframe
+              src={vimeoSrc()}
+              title="Vatulé — the film"
+              allow="autoplay; fullscreen; picture-in-picture"
+              allowFullScreen
+              className="h-full w-full border-0"
+            />
+          )}
+
+          {playing && !VIMEO_ID && YOUTUBE_ID && (
+            <iframe
+              src={`https://www.youtube-nocookie.com/embed/${YOUTUBE_ID}?autoplay=1&rel=0&modestbranding=1`}
+              title="Vatulé — the film"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              className="h-full w-full border-0"
+            />
+          )}
+
+          {playing && !VIMEO_ID && !YOUTUBE_ID && (
+            <video
+              ref={videoRef}
+              controls
+              playsInline
+              preload="metadata"
+              poster="/images/film-poster.jpg"
+              className="h-full w-full bg-black object-cover"
+            >
+              <source src="/video/vatule-loop.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          )}
         </div>
       </div>
     </section>

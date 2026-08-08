@@ -8,9 +8,10 @@ through **AWS SES** in account `343218184620`, `us-east-1`.
 
 ## 1. DNS — add in Cloudflare (zone `vatule.com`)
 
-SES is already in **production access** on this account (50k/day, healthy), so
-there is no sandbox restriction. The domain identity `vatule.com` is created and
-waiting on DKIM.
+SES is in **production access** on this account (50k/day, healthy) — no sandbox
+restriction. The `vatule.com` identity is **verified and sending**; DKIM status
+is `SUCCESS`. All records below are already live in the zone. They are recorded
+here so the setup can be rebuilt or audited.
 
 ### DKIM — three CNAMEs (required to send)
 
@@ -74,10 +75,26 @@ Both should read `true` / `SUCCESS`. Usually minutes; allow up to 72h.
 
 ### Site hosting
 
-`vatule.com` and `www` currently CNAME to `vatulevacationhome.hosting.kinsta.cloud`
-(the old WordPress host). Cutting over to Vercel means repointing those two
-records at Vercel and leaving everything else — MX, DKIM, SPF, the Google
-verification TXTs — untouched.
+`vatule.com` and `www` CNAME to Vercel (`3fd9308d3dbccc87.vercel-dns-016.com`);
+the apex 308-redirects to `www`. The old Kinsta WordPress host is no longer in
+the path — an offboarding export from June 2026 still shows Kinsta records, so
+disregard that file and trust the live zone.
+
+The zone is small and every record matters:
+
+| Record                  | Purpose                                  |
+| ----------------------- | ---------------------------------------- |
+| `vatule.com` CNAME      | site → Vercel                            |
+| `www` CNAME             | site → Vercel                            |
+| `MX 1 smtp.google.com`  | **inbound mail for `info@vatule.com`**   |
+| SPF TXT                 | authorises Google *and* SES to send      |
+| `_dmarc` TXT            | `p=quarantine` — unauthenticated mail is quarantined, so DKIM is not optional |
+| 3 × `_domainkey` CNAME  | SES DKIM                                 |
+| `_amazonses` TXT        | SES domain verification                  |
+
+The MX is Google's modern single-record Workspace format, **not** a GoDaddy
+leftover. Removing it would stop `info@vatule.com` receiving anything —
+including the inquiries this site sends there.
 
 ---
 
@@ -90,7 +107,9 @@ verification TXTs — untouched.
 | `SES_REGION`            | `us-east-1`                          | Optional; defaults to `us-east-1`                  |
 | `INQUIRY_FROM`          | `Vatulé <inquiries@vatule.com>`      | Optional; must be on the verified domain           |
 | `NEXT_PUBLIC_GA_ID`     | *(GA4 measurement ID)*               | Optional; analytics are skipped when unset         |
-| `NEXT_PUBLIC_FILM_YOUTUBE_ID` | *(video ID)*                   | Optional; see §4                                   |
+| `NEXT_PUBLIC_FILM_VIMEO_ID`   | `1216639692`                         | The film on Vimeo ("Casa Vatule")                  |
+| `NEXT_PUBLIC_FILM_VIMEO_HASH` | `e3cfb41aaa`                         | Required — the video is unlisted                   |
+| `NEXT_PUBLIC_FILM_YOUTUBE_ID` | *(video ID)*                         | Optional fallback if you ever move off Vimeo       |
 
 **Why not `AWS_ACCESS_KEY_ID`?** Vercel functions run on AWS Lambda, where the
 `AWS_*` names are reserved by the runtime and cannot be set as project env vars.
@@ -136,13 +155,26 @@ anything else in the account.
 `components/FilmSection.tsx` renders a poster with a play button and loads
 nothing until it is clicked.
 
-- **Currently**: plays `public/video/vatule-loop.mp4` — a 4.9 MB silent clip that
-  is only the **first 20 seconds** of the full film. It is a placeholder.
-- **To use the full film**: upload to Vimeo or YouTube and set
-  `NEXT_PUBLIC_FILM_YOUTUBE_ID`. The component switches to a privacy-mode embed
-  and the self-hosted clip is no longer used (delete it to save 4.9 MB).
+It plays **"Casa Vatule"** on Vimeo: <https://vimeo.com/1216639692>
 
-The 298 MB master cannot live in the repo — GitHub hard-blocks files over 100 MB.
+The video is **unlisted**, so the embed needs Vimeo's privacy hash. Without
+`h=e3cfb41aaa` the player returns **401 Unauthorized**. The hash is not a
+secret — it appears in the public share URL and in the page's `og:video:url` —
+but it is mandatory, so both env vars must be set together.
+
+If the film ever stops playing, check in this order:
+
+1. Both `NEXT_PUBLIC_FILM_VIMEO_ID` and `..._HASH` are set. These are inlined at
+   build time, so changing them requires a redeploy, not just a restart.
+2. The hash still matches. Vimeo reissues it if the video's privacy setting is
+   changed and re-saved. Re-copy it from the share URL.
+3. Vimeo's **Embed → Where can this be embedded?** setting allows `vatule.com`.
+   If it is restricted to specific domains, that list must include the site.
+
+The 298 MB master cannot live in the repo — GitHub hard-blocks files over
+100 MB — which is why this is hosted rather than self-hosted. The former 20-second
+placeholder clip has been removed now that the real film is wired up.
+
 
 ---
 
